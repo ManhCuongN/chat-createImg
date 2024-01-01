@@ -7,7 +7,7 @@ dotenv.config();
 const router = express.Router();
 
 const config = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
   // organization: 'org-vbrU3hTXlECrSX54n8HyVWrD',
 });
 
