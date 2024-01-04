@@ -2,18 +2,19 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import { Configuration, OpenAIApi} from 'openai';
 
+
 dotenv.config();
 
 const router = express.Router();
 
 const config = new Configuration({
-  apiKey: "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",
-  // organization: 'org-vbrU3hTXlECrSX54n8HyVWrD',
+  apiKey: process.env.token
 });
 
 const openai = new OpenAIApi(config);
 
 router.route('/').get((req, res) => {
+  console.log(process.env.token);
   res.status(200).json({ message: "Hello from DALL.E ROUTES" })
 })
 
