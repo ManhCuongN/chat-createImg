@@ -39,25 +39,18 @@ router.route('/').post(async (req, res) => {
 })
 
 router.route('/chat').post(async (req, res) => {
+  const { prompt } = req.body;
   try {
-    const { prompt } = req.body;
-console.log(prompt);
-    const resP = await openai.listEngines()
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: prompt,
-      max_tokens: 1000,
-      temperature: 0,
-    });
-    console.log(response.data);
-    if(response.data.choices[0].text) {
-      res.json({
-      message: response.data.choices[0].text
-    })
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Something went wrong" })
+    const resp = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+        messages: [
+          { role: "user", content: prompt}
+        ]  
+    })           
+        
+    res.status(200).json({message: resp.data.choices[0].message.content})
+  } catch(e) {
+      res.status(400).json({message: e.message})
   }
 })
 
